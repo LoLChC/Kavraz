@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımızda | Lezzetli Çikolata</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    {% include "layaut.html" %}
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        {% include 'partials/_header.html' %}
+    </header>
+
+    <!-- Hakkımızda Hero Bölümü -->
+    <section class="about-hero">
+        <div class="about-hero-content">
+            <h1>Hakkımızda</h1>
+            <p>2005 yılından bu yana, en kaliteli çikolataları üretmek için tutkuyla çalışıyoruz. Geleneksel yöntemlerle modern teknikleri birleştirerek eşsiz lezzetler yaratıyoruz.</p>
+        </div>
+    </section>
+
+    <!-- Hikayemiz Bölümü -->
+    <section class="our-story">
+        <div class="section-title">
+            <h2>Hikayemiz</h2>
+        </div>
+        <div class="story-content">
+            <div class="story-text">
+                <h3>Küçük Bir Atölyeden Dünya Standartlarına</h3>
+                <p>Lezzetli Çikolata'nın hikayesi, 2005 yılında İstanbul'da küçük bir atölyede başladı. Kurucumuz Ahmet Bey, Belçika'daki çikolata eğitiminden döndükten sonra, Türkiye'de kaliteli çikolata kültürünü yaymak için bu yolculuğa çıktı.</p>
+                <p>İlk yıllarda sadece yerel müşterilere hizmet verirken, kalitemiz ve özgün lezzetlerimiz sayesinde kısa sürede ülke çapında tanınan bir marka haline geldik. Bugün 50'den fazla çalışanımız ve 3 farklı üretim tesisimizle hizmet veriyoruz.</p>
+                <p>Geleneksel yöntemleri korurken sürekli yenilikçi ürünler geliştiriyor, çikolata sanatının sınırlarını zorluyoruz. Her bir çikolatamız, en kaliteli kakao çekirdekleri ve doğal malzemelerle özenle hazırlanıyor.</p>
+                <a href="#" class="btn btn-primary">Üretim Sürecimiz</a>
+            </div>
+            <div class="story-image">
+                <i class="fas fa-history"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Değerlerimiz Bölümü -->
+    <section class="our-values">
+        <div class="section-title">
+            <h2>Değerlerimiz</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3>Doğallık</h3>
+                <p>Ürünlerimizde yapay tatlandırıcı, koruyucu veya renklendirici kullanmıyoruz. %100 doğal malzemelerle üretim yapıyoruz.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3>Kalite</h3>
+                <p>En iyi kakao çekirdeklerini seçiyor, her aşamada titiz kalite kontrolü uyguluyoruz. Mükemmeliyet bizim standartımızdır.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Tutku</h3>
+                <p>Çikolataya olan tutkumuz, her bir ürüne yansıyor. İşimizi severek yapıyor, her detayı özenle düşünüyoruz.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Sürdürülebilirlik</h3>
+                <p>Çiftçilerle adil ticaret yapıyor, çevreye duyarlı üretim metodları kullanıyor ve sürdürülebilir tarımı destekliyoruz.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ekibimiz Bölümü -->
+    <section class="our-team">
+        <div class="section-title">
+            <h2>Ekibimiz</h2>
+        </div>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="member-info">
+                    <h3>Ahmet Yılmaz</h3>
+                    <p>Kurucu & Şef Çikolatacı</p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="member-photo">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="member-info">
+                    <h3>Ayşe Kaya</h3>
+                    <p>Üretim Müdürü</p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="member-photo">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="member-info">
+                    <h3>Mehmet Demir</h3>
+                    <p>Kalite Kontrol Uzmanı</p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="member-photo">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="member-info">
+                    <h3>Zeynep Şahin</h3>
+                    <p>Yaratıcı Direktör</p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        {% include 'partials/_footer.html' %}
+    </footer>
+</body>
+</html>
