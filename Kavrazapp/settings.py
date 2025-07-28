@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '33k%t)enrw1+nkr+_6n1zc+wm%o2l^-zoijy_3s!h=q7jsjzp%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False   
+DEBUG = True
 
 ALLOWED_HOSTS = ['kavraz.onrender.com','*']
 
