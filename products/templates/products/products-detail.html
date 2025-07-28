@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    {% include "layaut.html" %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ no_item.title }} | Kavraz Çikolata</title>
+    <link rel="stylesheet" href="{% static 'css/products_detail.css' %}?v={{random_number}}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        {% include "partials/_header.html" %}
+    </header>
+
+    <!-- Product Detail Banner -->
+    <section class="product-detail-banner">
+        <div class="banner-content">
+            <h1>{{ no_item.title }}</h1>
+            <p>Premium çikolata deneyiminin eşsiz lezzeti</p>
+        </div>
+    </section>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="product-detail-container">
+            <div class="product-detail-image" style="background-image: url('{{ no_item.images.url }}');"></div>
+            <div class="product-detail-info">
+                <h2>{{ no_item.title }}</h2>
+                <p>{{ no_item.category.title }}</p>
+                <p class="product-price">{{ no_item.price }} TL</p>
+                <div class="product-description">
+                    <p>{{ no_item.description }}</p>
+                </div>
+                <p class="product-description">Stok: {{ no_item.stock }}</p>
+                <div class="product-actions">
+                    <form method="post" action="{% url 'products:add_to_cart' no_item.id %}" class="add-to-cart-form">
+                        {% csrf_token %}
+                        <div class="quantity-selector">
+                            <button type="button" class="quantity-btn minus">-</button>
+                            <input type="number" name="quantity" value="1" min="1" max="{{ no_item.stock }}" class="quantity-input">
+                            <button type="button" class="quantity-btn plus">+</button>
+                        </div>
+                        {% if user.is_authenticated %}
+                            <button type="submit" class="btn btn-primary add-to-cart-btn">Sepete Ekle</button>
+                        {% else %}
+                            <button type="button" onclick="location.href='{% url 'account:login' %}?next={% url 'products:products_detail' no_item.slug %}'" class="btn btn-primary">Sepete Ekle</button>
+                        {% endif %}
+                    </form>
+                </div>
+                <div class="product-features">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>%100 Doğal Malzemeler</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span>1-3 İş Gününde Teslimat</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-award"></i>
+                        <span>Premium Kalite</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-products">
+        <div class="section-title">
+            <h2>Aynı Kategoriden Ürünler</h2> 
+        </div>
+        <div class="product-grid">
+            {% for product in products %}
+                <div class="product-card">
+                    <a href="{% url 'products:products_detail' slug=product.slug %}">
+                        <div class="product-detail-image" style="background-image: url('{{ product.images.url }}');"></div>
+                        <div class="product-info">
+                            <h3>{{ product.title }}</h3>
+                            <p>{{ product.description|truncatewords:60 }} ...</p>
+                            <span class="price">{{ product.price }} TL</span>
+                            <a href="{% url 'products:products_detail' product.slug %}" class="btna btna-primary">Detayları Gör</a>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <footer id="contact">
+        {% include "partials/_footer.html" %}
+    </footer>
+
+    <script src='{% static "js/products_detail.js" %}'></script>
+</body>
+</html>

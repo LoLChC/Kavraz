@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımızda | Kavraz Çikolata</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/about.css' %}?v=1271">
+    {% include "layaut.html" %}
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        {% include 'partials/_header.html' %}
+    </header>
+
+    <!-- Hakkımızda Hero Bölümü -->
+    <section class="about-hero">
+        <div class="about-hero-content">
+                <h1>Hakkımızda</h1>
+                <div class="about-hero-text">
+                <p>
+                    Kavraz Çikolata, Giresun’un bereketli topraklarında doğmuş, 8 girişimci kadının bir araya gelerek kurduğu bir kadın kooperatifidir. Doğal ve kaliteli ürünleri el emeğiyle buluşturarak, çikolata tutkunlarına benzersiz lezzetler sunuyoruz.
+                </p>
+                <p>
+                    Ürünlerimizin temelinde, Giresun’un dünyaca ünlü fındığı ve özenle seçilmiş kaliteli çikolata yer alıyor. Tamamen el yapımı olarak hazırlanan her lokmada emeğimizi, sevgimizi ve yöresel lezzetlere olan bağlılığımızı hissedeceksiniz.
+                </p>
+                <p>
+                    Sadece bir çikolata markası değil, aynı zamanda kadın emeğini destekleyen, yerel üretimi ön planda tutan sosyal bir girişimiz. Kavraz Çikolata’da her ürün; dayanışmanın, emeğin ve doğallığın bir parçasıdır.
+                </p>
+                </div>
+        </div>
+    </section>
+
+
+    <!-- Hikayemiz Bölümü -->
+    <section class="our-story">
+        <div class="section-title">
+            <h2>Hikayemiz</h2>
+        </div>
+        <div class="story-content">
+            <div class="story-text">
+                <h3>Kadınların El Birliği İle</h3>
+                <p>Kavraz Çikolata, Giresun’un bereketli topraklarında filizlenen bir kadın girişim hikayesidir. Sekiz girişimci kadın olarak bir araya geldik, hem yöremizin meşhur fındığını hem de el emeğimizi birleştirerek lezzeti ve dayanışmayı aynı çatı altında buluşturduk.</p>
+                <p>Küçük bir atölyede başlayan bu yolculuk, zamanla büyüdü; ama özümüz hep aynı kaldı: doğallık, emek ve kalite.</p>
+                <Bu>Her bir çikolatamız, içtenlikle üretilen, katkısız ve el yapımı birer tatlı hikayedir. Bu hikayede, sadece çikolata değil; paylaşmak, üretmek ve birlikte güçlenmek var.</p>
+            </div>
+            <div class="story-image">
+                <i class="fas fa-history"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Değerlerimiz Bölümü -->
+    <section class="our-values">
+        <div class="section-title">
+            <h2>Değerlerimiz</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="icon icon-chocolate"></i>
+                </div>
+                <h3>El Emeği ve Doğallık</h3>
+                <p>Tüm ürünlerimizi katkı maddesi kullanmadan, tamamen el yapımı olarak üretiyoruz. Her lokmada doğallığın ve emeğin tadını alacaksınız.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="icon icon-wowman"></i>
+                </div>
+                <h3>Kadın Dayanışması</h3>
+                <p>Bir kadın kooperatifi olarak, kadınların ekonomik ve sosyal gücünü artırmayı hedefliyoruz. Her ürünümüz, kadın emeğinin ve dayanışmasının bir meyvesidir.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <span class="icon icon-hazelnut"></span>
+                </div>
+                <h3>Yöresel Ürünlere Sadakat</h3>
+                <p>Giresun’un dünyaca ünlü fındığını kullanıyor, yerel kaynaklara değer veriyoruz. Lezzetimizi köklerimizden alıyoruz.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="icon icon-yellow-heart"></i>
+                </div>
+                <h3>Kalite ve Tutku</h3>
+                <p>Lezzet, detaylarda gizlidir. Biz, her aşamayı özenle planlar, tutkuyla çalışır ve en yüksek kaliteyi sunarız.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="icon icon-tree"></i>
+                </div>
+                <h3>Sürdürülebilirlik</h3>
+                <p>Doğaya, insana ve emeğe saygılı üretim anlayışımızla; hem bugünü hem geleceği önemsiyoruz.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        {% include 'partials/_footer.html' %}
+    </footer>
+</body>
+</html>

@@ -1,0 +1,47 @@
+.icon {
+    display: inline-block;
+    position: relative;
+    font-style: normal;
+    font-size: 2rem;
+    line-height: 1;
+    text-shadow: 
+        -1.5px -1.5px 0 #000,
+        1.5px -1.5px 0 #000,
+        -1.5px 1.5px 0 #000,
+        1.5px 1.5px 0 #000,
+        -1.5px 0 0 #000,
+        1.5px 0 0 #000,
+        0 -1.5px 0 #000,
+        0 1.5px 0 #000;
+}
+
+.icon::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    border-radius: 2px;
+}
+
+.icon-chocolate::after {
+    content: '🍫';
+}
+
+.icon-wowman::after {
+  content: '👩‍🌾';
+}
+
+.icon-hazelnut::after {
+  content: '🌰';
+}
+
+.icon-yellow-heart::after {
+  content: '💛 ';
+}
+
+.icon-tree::after {
+  content: '🌿';
+}

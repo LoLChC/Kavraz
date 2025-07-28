@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    {% include "layaut.html" %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sepetim | Kavraz Çikolata</title>
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}?v={{random_number}}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        {% include "partials/_header.html" %}
+    </header>
+
+    <section class="cart-section">
+        <div class="section-title">
+            <h2>Alışveriş Sepetim</h2>
+        </div>
+
+        <div class="cart-container">
+            {% if cart_items %}
+                <div class="cart-items">
+                    {% for item in cart_items %}
+                        <div class="cart-item" data-product-id="{{ item.product.id }}">
+                            <div class="cart-item-img-container">
+                                <img src="{{ item.product.images.url }}" alt="{{ item.product.title }}" class="cart-item-img">
+                            </div>
+                            <div class="cart-item-details">
+                                <h3>{{ item.product.title }}</h3>
+                                <p class="description">{{ item.product.description|truncatechars:100 }}</p>
+                                <div class="quantity-controls">
+                                    <form method="post" action="{% url 'products:update_cart' item.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" name="action" value="increase" class="quantity-btn">+</button>
+                                        <span class="quantity">{{ item.quantity }}</span>
+                                        <button type="submit" name="action" value="decrease" class="quantity-btn diff">-</button>
+                                    </form>
+                                    <span class="price">{{ item.product.price }} TL x {{ item.quantity }}</span>
+                                </div>
+                            </div>
+                            <div class="cart-item-actions">
+                                <span class="item-total">{{ item.item_price }} TL</span>
+                                <a href="{% url 'products:remove_from_cart' item.id %}" class="remove-btn">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="summary-card">
+                    <h3>Sipariş Özeti</h3>
+                    <div class="summary-content">
+                        <div class="summary-row">
+                            <span>Ara Toplam:</span>
+                            <span class="subtotal">{{ cart_total }} TL</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Kargo:</span>
+                            <span>Ücretsiz</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Toplam:</span>
+                            <span class="grand-total">{{ cart_total }} TL</span>
+                        </div>
+                    </div>
+                    <a href="{% url 'products:checkout' %}" class="btn btn-primary checkout-btn">
+                        <i class="fas fa-credit-card"></i> Ödemeye Geç
+                    </a>
+                    <a href="{% url 'products:products' %}" class="btn btn-outline continue-btn">
+                        <i class="fas fa-shopping-bag"></i> Alışverişe Devam Et
+                    </a>
+                </div>
+            {% else %}
+                <div class="empty-cart">
+                    <div class="empty-cart-icon">
+                        <i class="fas fa-shopping-basket"></i>
+                    </div>
+                    <h3>Sepetiniz Şu An Boş</h3>
+                    <p>Lezzetli çikolatalarımızı keşfetmek için ürünler sayfamızı ziyaret edin</p>
+                    <a href="{% url 'products:products' %}" class="btn btn-primary">Ürünlere Göz At</a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        {% include "partials/_footer.html" %}
+    </footer>
+
+    <script src='{% static "js/cart.js" %}?v={{random_number}}'></script>
+</body>
+</html>

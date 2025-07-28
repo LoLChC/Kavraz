@@ -1,0 +1,604 @@
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #2f2f2f; /* Koyu tema arkaplan */
+  color: #f0f0f0; /* Açık metin rengi */
+  line-height: 1.6;
+}
+
+.account-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero Section */
+.account-hero {
+  height: 300px;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), 
+              url('../images/Account.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #f3be6e; /* Ana renk */
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Account Dashboard */
+.account-dashboard {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  gap: 2rem;
+  padding: 0 1rem;
+  margin-bottom: 3rem;
+}
+
+/* Sidebar - Koyu Tema Uyumlu */
+.account-sidebar {
+  width: 280px;
+  background: #3a3a3a; /* Kart arkaplan rengi */
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  height: fit-content;
+  border: 1px solid #444;
+}
+
+.user-profile {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #444;
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  font-size: 4rem;
+  color: #f3be6e; /* Ana renk */
+  margin-bottom: 1rem;
+}
+
+.user-profile h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #f3be6e; /* Ana renk */
+}
+
+.user-profile p {
+  color: #d0d0d0; /* Açık gri */
+  font-size: 0.9rem;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar-nav a {
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  color: #e0e0e0; /* Açık metin */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.sidebar-nav a:hover, 
+.sidebar-nav a.active {
+  background-color: #f3be6e; /* Ana renk */
+  color: #2f2f2f; /* Koyu arkaplan */
+}
+
+.sidebar-nav a i {
+  width: 20px;
+  text-align: center;
+}
+
+.logout-btn {
+  margin-top: 1rem;
+  color: #ff6b6b !important; /* Kırmızı ton */
+}
+
+.logout-btn:hover {
+  background-color: rgba(255, 107, 107, 0.1) !important;
+}
+
+/* Main Content - Koyu Tema Uyumlu */
+.account-content {
+  flex: 1;
+  background: #3a3a3a; /* Kart arkaplan rengi */
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  border: 1px solid #444;
+}
+
+.content-section {
+  display: none;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.content-section.active {
+  display: block;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #444;
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  color: #f3be6e; /* Ana renk */
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.edit-btn, .add-address-btn {
+  background-color: #f3be6e; /* Ana renk */
+  color: #2f2f2f; /* Koyu metin */
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.edit-btn:hover, .add-address-btn:hover {
+  background-color: #e0a94a; /* Daha koyu altın */
+  transform: translateY(-2px);
+}
+
+/* Profile Card */
+.profile-card {
+  background: #2f2f2f; /* Body rengi */
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #444;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #444;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.label {
+  font-weight: 600;
+  width: 150px;
+  color: #f3be6e; /* Ana renk */
+}
+
+.value {
+  flex: 1;
+  color: #d0d0d0; /* Açık gri */
+}
+
+/* Address Grid */
+.address-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  min-height: 60vh;
+}
+
+.address-card {
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  background: #2f2f2f; /* Body rengi */
+}
+
+.address-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.address-card.default {
+  border-left: 4px solid #4CAF50;
+  background-color: #2a3a2a; /* Koyu yeşil ton */
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.card-header h3 {
+  font-size: 1.1rem;
+  color: #f3be6e; /* Ana renk */
+}
+
+.default-badge {
+  color: #4CAF50;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.address-details p {
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #d0d0d0; /* Açık gri */
+}
+
+.address-details i {
+  width: 20px;
+  color: #f3be6e; /* Ana renk */
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.action-btn i {
+  font-size: 0.9rem;
+}
+
+.set-default {
+  background-color: #FFC107;
+  color: #333;
+}
+
+.set-default:hover {
+  background-color: #ffb300;
+}
+
+.edit {
+  background-color: #2196F3;
+  color: white;
+}
+
+.edit:hover {
+  background-color: #0b7dda;
+}
+
+.delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete:hover {
+  background-color: #d32f2f;
+}
+
+/* Form Fixes */
+.default-form,
+.delete-form {
+  display: inline;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 3rem 2rem;
+  color: #999;
+}
+
+.empty-state i {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Settings */
+.settings-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.settings-btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  background-color: #f3be6e; /* Ana renk */
+  color: #2f2f2f;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.settings-btn:hover {
+  background-color: #e0a94a;
+  transform: translateY(-2px);
+}
+
+.settings-btn.danger {
+  background-color: #f44336;
+  color: white;
+}
+
+.settings-btn.danger:hover {
+  background-color: #d32f2f;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background-color: #3a3a3a; /* Kart rengi */
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  animation: modalFadeIn 0.3s ease-out;
+  border: 1px solid #444;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #444;
+}
+
+.modal-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #f3be6e; /* Ana renk */
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #d0d0d0;
+}
+
+.address-form {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #f3be6e; /* Ana renk */
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+  font-family: inherit;
+  background-color: #2f2f2f;
+  color: #e0e0e0;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+  color: #d0d0d0;
+}
+
+.form-check input {
+  width: auto;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.submit-btn {
+  background-color: #f3be6e; /* Ana renk */
+  color: #2f2f2f;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #e0a94a;
+}
+
+.cancel-btn {
+  background-color: #444;
+  color: #e0e0e0;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #555;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .account-dashboard {
+    flex-direction: column;
+  }
+  
+  .account-sidebar {
+    width: 100%;
+  }
+  
+  .sidebar-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  
+  .sidebar-nav a {
+    white-space: nowrap;
+  }
+  
+  .logout-btn {
+    margin-top: 0;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .account-hero {
+    height: 250px;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .address-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .account-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .card-actions {
+    flex-direction: column;
+  }
+  
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    margin: 0 1rem;
+  }
+}

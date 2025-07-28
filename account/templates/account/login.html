@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    {% include "layaut.html" %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap | Kavraz Çikolata</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}?v={{random_number}}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        {% include "partials/_header.html" %}
+    </header>
+    <section class="auth-section">
+        <div class="auth-container">
+            <div class="auth-card">
+                <h2>Giriş Yap</h2>
+                <form method="POST" class="auth-form" autocomplete="off">
+                    {% csrf_token %}
+                    {% if messages %}
+                        <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message|safe }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    {% if activation_required %}
+                        <div style="background: #fef3c7; padding: 10px; border-radius: 10px; margin-top: 20px;">
+                        <strong>Aktivasyon Gerekli:</strong><br>
+                        <p>Hesabınızı henüz aktifleştirmediniz.</p>
+                        <br><br>
+                        <a href="{% url 'account:resend_activation' %}?email={{ user_email|safe }}" style="color: #b45309;">Aktivasyon linkini tekrar gönder</a>
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="username">Kullanıcı Adı</label>
+                        <input type="text" id="username" name="username" autocomplete="new-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Şifre</label>
+                        <input type="password" id="password" name="password" autocomplete="new-password" required>
+                    </div>
+                    <div class="form-options">
+                        <a href="/account/forgotpassword" class="forgot-password">Şifremi Unuttum</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Hesabınız yok mu? <a href="/account/register">Kayıt Ol</a></p>
+                </div>
+            </div>
+            <div class="auth-image">
+                <div class="auth-image-overlay">
+                    <h3>Lezzetli Çikolatalar Dünyasına Hoş Geldiniz</h3>
+                    <p>Hesabınıza giriş yaparak özel ürünlerimizi keşfedin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        {% include "partials/_footer.html" %}
+    </footer>
+    <script src='{% static 'js/index.js' %}'></script>
+</body>
+</html>

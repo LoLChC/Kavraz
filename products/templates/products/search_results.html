@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include "layaut.html" %}
+    <link rel="stylesheet" href="{% static 'css/search_results.css' %}?v={{ random_number }}">
+    <title>{{ query}} | Kavraz Çikolata</title>
+</head>
+<body>
+    <header>
+        {% include "partials/_header.html" %}
+    </header>
+
+    <section class="products-banner">
+        <div class="banner-content">
+            <h1>Premium Çikolata Koleksiyonumuz</h1>
+            <p>Özenle seçilmiş malzemelerle hazırlanan eşsiz lezzetlerimizi keşfedin</p>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <form method="GET" action="">
+            <div class="filter-options">
+                <div class="filter-group">
+                    <label for="category">Kategori</label>
+                    <select name="category" id="category">
+                        <option value="">Tüm Kategoriler</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat.slug }}" {% if cat.slug == selected_category %}selected{% endif %}>{{ cat.title }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="min_price">Minimum Fiyat</label>
+                    <input type="number" name="min_price" id="min_price" placeholder="₺"
+                        {% if min_price %} value="{{ min_price }}" {% endif %}>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="max_price">Maksimum Fiyat</label>
+                    <input type="number" name="max_price" id="max_price" placeholder="₺"
+                        {% if max_price %} value="{{ max_price }}" {% endif %}>
+                </div>
+                
+                <div class="filter-group">
+                    <button type="submit" class="btn btn-primary">Filtrele</button>
+                    <a href="{% if query|length > 0 %}{% url 'products:search_results' %}?q={{ query }}{% else %}{% url 'products:search_results' %}{% endif %}" class="btn btn-secondary">Sıfırla</a>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    {% if selected_category or min_price or max_price %}
+        <p class="filter-info">
+            {% if selected_category_obj %}
+            
+            {% endif %}
+            {% if min_price %}
+            
+            {% endif %}
+            {% if max_price %}
+            
+            {% endif %}
+    
+    {% endif %}
+
+        <div class="product-grid">
+            {% if products %}
+                {% for product in products %}
+                    <div class="product-card">
+                        <a href="{% url 'products_detail' product.slug %}">
+                            <div class="product-images" style="background-image: url('../../media/{{ product.images }}');"></div>
+                        </a>
+                        <div class="product-info">
+                            <a href="{% url 'products_detail' product.slug %}">
+                                <h3>{{ product.title }}</h3>
+                                <span class="price">{{ product.price }}₺</span>
+                                <a href="{% url 'products_detail' product.slug %}" class="btn btn-primary">Detayları Gör</a>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-products">Sonuç Bulunamadı.</p>
+            {% endif %}
+        </div>
+    </section>
+    <footer>
+        {% include "partials/_footer.html" %}
+    </footer>
+</body>
+</html>

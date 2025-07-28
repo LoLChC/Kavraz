@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    {% include "layaut.html" %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kayıt Ol | Kavraz Çikolata</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}?v={{ random_number }}">
+    <style>
+        .error-input {
+            border-color: #dc3545 !important;
+        }
+        .error-text {
+            color: #dc3545;
+            margin-top: 3px;
+            font-size: 0.9em;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    {% include "partials/_header.html" %}
+</header>
+
+<section class="auth-section">
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Hesap Oluştur</h2>
+
+            <form method="post" class="auth-form" id="register-form" autocomplete="off" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+<div class="form-group">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field }}
+    <small id="{{ field.name }}-error" class="error-text">
+        {% for error in field.errors %}
+            {{ error }}<br>
+        {% endfor %}
+    </small>
+</div>
+{% endfor %}
+
+                <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Zaten hesabınız var mı? <a href="{% url 'account:login' %}">Giriş Yap</a></p>
+            </div>
+        </div>
+
+        <div class="auth-image">
+            <div class="auth-image-overlay">
+                <h3>Kavraz Çikolata Ailesine Katılın</h3>
+                <p>Premium çikolatalarımızdan özel indirimler ve kampanyalardan haberdar olun.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    {% include "partials/_footer.html" %}
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(function() {
+    function showError(id, message) {
+        $('#' + id).text(message).show();
+        $('#id_' + id.replace('-error', '')).addClass('error-input');
+    }
+
+    function clearError(id) {
+        $('#' + id).text('').hide();
+        $('#id_' + id.replace('-error', '')).removeClass('error-input');
+    }
+
+    function validatePasswordFields() {
+        const pass1 = $('#id_password1').val();
+        const pass2 = $('#id_password2').val();
+        let valid = true;
+
+        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(pass1)) {
+            showError('password1-error', 'Şifre en az 8 karakter, büyük harf, rakam ve özel karakter içermelidir.');
+            valid = false;
+        } else {
+            clearError('password1-error');
+        }
+
+        if (pass1 !== pass2) {
+            showError('password2-error', 'Şifreler eşleşmiyor');
+            valid = false;
+        } else {
+            clearError('password2-error');
+        }
+
+        return valid;
+    }
+
+    const fieldsToValidate = ['username', 'email', 'phone_number', 'date_of_birth'];
+
+    fieldsToValidate.forEach(field => {
+        $('#id_' + field).on('input change', function () {
+            const value = $(this).val();
+            $.get("{% url 'account:validate_field' %}", { field, value }, function (data) {
+                if (!data.valid) {
+                    showError(field + '-error', data.message);
+                } else {
+                    clearError(field + '-error');
+                }
+            });
+        });
+    });
+
+    $('#id_password1, #id_password2').on('input', validatePasswordFields);
+
+    $('#register-form').on('submit', function(e) {
+        let hasClientErrors = false;
+
+        fieldsToValidate.forEach(field => {
+            const value = $('#id_' + field).val();
+            $.ajax({
+                url: "{% url 'account:validate_field' %}",
+                data: { field, value },
+                async: false,
+                success: function (data) {
+                    if (!data.valid) {
+                        showError(field + '-error', data.message);
+                        hasClientErrors = true;
+                    } else {
+                        clearError(field + '-error');
+                    }
+                }
+            });
+        });
+
+        if (!validatePasswordFields()) hasClientErrors = true;
+
+        if (hasClientErrors) {
+            e.preventDefault();
+        }
+    });
+});
+</script>
+</body>
+</html>

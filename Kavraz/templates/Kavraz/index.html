@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    {% include "layaut.html" %} 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavraz Çikolata | Premium Çikolatalar</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}?v={{random_number}}">
+    
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        {% include "partials/_header.html" %}
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Premium Çikolata Lezzetleri</h2>
+            <p>Özenle seçilmiş organik kakao çekirdekleri ile hazırlanan eşsiz çikolatalarımızı keşfedin. %100 doğal malzemelerle üretilir, her lokmada mutluluk sunar.</p>
+            <div class="hero-buttons">
+                <a href="products/" class="btn btn-primary">Ürünleri Keşfet</a>
+                <a href="about/" class="btn btn-outline">Hakkımızda</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="products">
+        <div class="section-title">
+            <h2>Öne Çıkan Ürünler</h2>
+        </div>
+        <div class="product-grid">
+            {% for products in featured %}
+                <div class="product-card">
+                    <a href="{% url 'products_detail' products.slug %}">
+                        <div class="product-img" style="background-image: url('media/{{ products.images}}');"></div>
+                        <div class="product-info">
+                            <h3>{{ products.title }}</h3>
+                            <p class="description">{{ products.description|truncatewords:60 }}</p>
+                            <span class="price">{{ products.price }}</span>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'products:add_to_cart' products.id %}" class="btn btn-primary">Sepete Ekle</a>
+                            {% else %}
+                                <a href="{% url 'account:login' %}?next={% url 'products_detail' products.slug %}" class="btn btn-primary">
+                                    Sepete Ekle
+                                </a>
+                            {% endif %}
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <a href="{% url 'products_detail' products.slug %}" class="btn btn-primary">Detayları Gör</a>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="about-img">
+            <i class="fas fa-heart"></i>
+        </div>
+        <div class="about-content">
+            <h2>Lezzetli Çikolata Hikayemiz</h2>
+            <p>2005 yılında küçük bir atölyede başlayan yolculuğumuz, bugün ülkenin en sevilen çikolata markalarından biri olmamızı sağladı. Her bir çikolatamız, özenle seçilmiş organik kakao çekirdekleri ve doğal malzemelerle el yapımı olarak hazırlanır.</p>
+            <p>Kalite ve lezzetten ödün vermeden, geleneksel yöntemlerle modern teknikleri birleştirerek üretim yapıyoruz. Sürdürülebilir tarım uygulamalarını destekleyerek hem çiftçilerimize hem de doğaya katkı sağlıyoruz.</p>
+            <a href="/about" class="btn btn-primary">Daha Fazla Bilgi</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        {% include "partials/_footer.html" %}
+    </footer>
+    <script src='{%static 'js/index.js'%}'></script>
+</body>
+</html>

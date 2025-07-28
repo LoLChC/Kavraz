@@ -1,0 +1,308 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {% include "layaut.html" %}
+  <title>{{ request.user.username }} | Hesabım</title>
+  <link rel="stylesheet" href="{% static 'css/account.css' %}?v={{random_number}}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .error-input {
+      border-color: #dc3545 !important;
+    }
+    .error-text {
+      color: #dc3545;
+      display: none;
+      margin-top: 5px;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    {% include "partials/_header.html" %}
+  </header>
+
+  {% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <main class="account-container">
+    <section class="account-hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Hesabım</h1>
+        <p>Hoş geldiniz, {{ request.user.first_name }}!</p>
+      </div>
+    </section>
+
+    <div class="account-dashboard">
+      <aside class="account-sidebar">
+        <div class="user-profile">
+          <div class="avatar">
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <h3>{{ request.user.username }}</h3>
+          <p>{{ request.user.email }}</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+          <a href="javascript:void(0)" onclick="showSection(event, 'profile')" class="active">
+            <i class="fas fa-user"></i> Profil Bilgileri
+          </a>
+          <a href="javascript:void(0)" onclick="showSection(event, 'orders')">
+            <i class="fas fa-box-open"></i> Siparişlerim
+          </a>
+          <a href="javascript:void(0)" onclick="showSection(event, 'address')">
+            <i class="fas fa-map-marker-alt"></i> Adreslerim
+          </a>
+          <a href="javascript:void(0)" onclick="showSection(event, 'settings')">
+            <i class="fas fa-cog"></i> Ayarlar
+          </a>
+          <a href="{% url 'account:logout' %}" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+          </a>
+        </nav>
+      </aside>
+
+      <div class="account-content">
+        <!-- Profile Section -->
+        <section id="profile" class="content-section active">
+          <div class="section-header">
+            <h2><i class="fas fa-user"></i> Profil Bilgileri</h2>
+          </div>
+          <div class="profile-card">
+            <div class="info-row">
+              <span class="label">Kullanıcı Adı:</span>
+              <span class="value">{{ request.user.username }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Ad:</span>
+              <span class="value">{{ request.user.first_name }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Soyad:</span>
+              <span class="value">{{ request.user.last_name }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">E-posta:</span>
+              <span class="value">{{ request.user.email }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Telefon Numarası:</span>
+              <span class="value">{{ profile.phone_number }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Doğum Tarihi:</span>
+              <span class="value">{{ profile.date_of_birth }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Kayıt Olma Tarihi:</span>
+              <span class="value">{{ request.user.date_joined }}</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="orders" class="content-section">
+          <div class="section-header">
+            <h2><i class="fas fa-box-open"></i> Sipariş Geçmişi</h2>
+          </div>
+          <div class="empty-state">
+            <i class="fas fa-info-circle"></i>
+            <p>Henüz sipariş geçmişiniz bulunmamaktadır.</p>
+          </div>
+        </section>
+
+        <!-- Address Section -->
+        <section id="address" class="content-section">
+          <div class="section-header">
+            <h2><i class="fas fa-map-marker-alt"></i> Adreslerim</h2>
+            <button class="add-address-btn" onclick="openAddressModal('add')">
+              <i class="fas fa-plus"></i> Yeni Adres
+            </button>
+          </div>
+          
+          <div class="address-grid">
+            {% for address in addresses %}
+            <div class="address-card {% if address.is_default %}default{% endif %}">
+              <div class="card-header">
+                <h3>{{ address.title }}</h3>
+                {% if address.is_default %}
+                <span class="default-badge"><i class="fas fa-check-circle"></i> Varsayılan</span>
+                {% endif %}
+              </div>
+              
+              <div class="address-details">
+                <p><i class="fas fa-city"></i> {{ address.city }}</p>
+                <p><i class="fas fa-map-marked-alt"></i> {{ address.district }}</p>
+                <p><i class="fas fa-road"></i> {{ address.address_line }}</p>
+              </div>
+              
+              <div class="card-actions">
+                {% if not address.is_default %}
+                <form method="POST" class="default-form">
+                  <input type="hidden" name="form_type" value="set_default">
+                  <input type="hidden" name="address_id" value="{{ address.id }}">
+                  {% csrf_token %}
+                  <button type="submit" class="action-btn set-default">
+                    <i class="fas fa-star"></i> Varsayılan Yap
+                  </button>
+                </form>
+                {% endif %}
+                
+                <button class="action-btn edit" onclick="openAddressModal('edit', {{ address.id }}, '{{ address.title|escapejs }}', '{{ address.city|escapejs }}', '{{ address.district|escapejs }}', '{{ address.address_line|escapejs }}', {% if address.is_default %}true{% else %}false{% endif %})">
+                  <i class="fas fa-edit"></i> Düzenle
+                </button>
+                
+                <form method="POST" class="delete-form">
+                  <input type="hidden" name="form_type" value="delete_address">
+                  <input type="hidden" name="address_id" value="{{ address.id }}">
+                  {% csrf_token %}
+                  <button type="submit" class="action-btn delete">
+                    <i class="fas fa-trash"></i> Sil
+                  </button>
+                </form>
+              </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+              <i class="fas fa-map-marker-alt"></i>
+              <p>Henüz kayıtlı adresiniz bulunmamaktadır.</p>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="content-section">
+          <div class="section-header">
+            <h2><i class="fas fa-cog"></i> Hesap Ayarları</h2>
+          </div>
+          <div class="settings-options">
+            <button class="settings-btn" onclick="openPasswordModal()">
+              <i class="fas fa-key"></i> Şifre Değiştir
+            </button>
+            <a href="{% url 'account:delete_account' %}" class="settings-btn danger">
+              <i class="fas fa-trash"></i> Hesabımı Sil
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>{% include "partials/_footer.html" %}</footer>
+  
+  <!-- Address Modal -->
+  <div class="modal" id="addressModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle"><i class="fas fa-plus-circle"></i> Yeni Adres Ekle</h3>
+        <button type="button" class="close-modal" onclick="closeAddressModal()">&times;</button>
+      </div>
+      <form id="addressForm" method="post" action="{% url 'account:account' %}">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" id="formType" value="add_address">
+        <input type="hidden" name="address_id" id="addressId">
+        
+        <div class="form-group">
+          <label for="addressTitle">Başlık*</label>
+          <input type="text" id="addressTitle" name="title" required placeholder="Örn: Ev, İş">
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">Şehir*</label>
+            <input type="text" id="city" name="city" required>
+          </div>
+          <div class="form-group">
+            <label for="district">İlçe*</label>
+            <input type="text" id="district" name="district" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="addressLine">Adres*</label>
+          <textarea id="addressLine" name="address_line" rows="3" required></textarea>
+        </div>
+        
+        <div class="form-check">
+          <input type="checkbox" id="setAsDefault" name="set_default">
+          <label for="setAsDefault">Varsayılan adres olarak ayarla</label>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-save"></i> Kaydet
+          </button>
+          <button type="button" class="cancel-btn" onclick="closeAddressModal()">
+            <i class="fas fa-times"></i> İptal
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle"><i class="fas fa-key"></i> Şifre Değiştir</h3>
+        <button type="button" class="close-modal" onclick="closePasswordModal()">&times;</button>
+      </div>
+      <form id="passwordForm" method="post" action="{% url 'account:account' %}" autocomplete="off" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="change_password">
+        
+        <div class="form-group">
+          <label for="old_password">Mevcut Şifre*</label>
+          <input type="password" id="old_password" name="old_password" required>
+          <small id="old_password-error" class="error-text"></small>
+        </div>
+        <div class="form-group">
+          <label for="new_password1">Yeni Şifre*</label>
+          <input type="password" id="new_password1" name="new_password1" required 
+                 placeholder="En az 8 karakter, büyük harf, rakam, özel karakter">
+          <div class="password-strength">
+            <div class="password-strength-bar" id="passwordStrengthBar"></div>
+          </div>
+          <small id="new_password1-error" class="error-text"></small>
+        </div>
+        <div class="form-group">
+          <label for="new_password2">Yeni Şifre (Tekrar)*</label>
+          <input type="password" id="new_password2" name="new_password2" required 
+                 placeholder="Yeni şifreyi tekrar girin">
+          <small id="new_password2-error" class="error-text"></small>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-save"></i> Kaydet
+          </button>
+          <button type="button" class="cancel-btn" onclick="closePasswordModal()">
+            <i class="fas fa-times"></i> İptal
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="{% static 'js/account.js' %}?v={{random_number}}"></script>
+  <script>
+    // Sayfa yüklendiğinde şifre modalını aç (eğer hata varsa)
+    document.addEventListener("DOMContentLoaded", function() {
+        {% if password_modal_open %}
+        openPasswordModal();
+        {% endif %}
+    });
+  </script>
+</body>
+</html>
