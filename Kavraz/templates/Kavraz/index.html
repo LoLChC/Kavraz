@@ -34,7 +34,7 @@
             {% for products in featured %}
                 <div class="product-card">
                     <a href="{% url 'products_detail' products.slug %}">
-                        <div class="product-img" style="background-image: url('media/{{ products.images}}');"></div>
+                        <div class="product-img" style="background-image: url('{% static "media/{{ products.images}}" %}');"></div>
                         <div class="product-info">
                             <h3>{{ products.title }}</h3>
                             <p class="description">{{ products.description|truncatewords:60 }}</p>
