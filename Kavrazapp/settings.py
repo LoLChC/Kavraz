@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '33k%t)enrw1+nkr+_6n1zc+wm%o2l^-zoijy_3s!h=q7jsjzp%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = False   
 
-ALLOWED_HOSTS = ['https://kavraz.onrender.com','*']
+ALLOWED_HOSTS = ['kavraz.onrender.com','*']
 
 LOGIN_URL = '/account/login/'
 
@@ -83,13 +83,10 @@ WSGI_APPLICATION = 'Kavrazapp.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(
+        'postgresql://kavrazdb_user:Io1Ew8LawS4c5DD6oG45dk0x8weqACVv@dpg-d23qvdfgi27c738ati70-a.oregon-postgres.render.com/kavrazdb'
+    )
 }
-
-DATABASES['default'] = dj_database_url.parse("postgresql://kavrazdb_user:Io1Ew8LawS4c5DD6oG45dk0x8weqACVv@dpg-d23qvdfgi27c738ati70-a.oregon-postgres.render.com/kavrazdb")
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
