@@ -25,7 +25,7 @@
     <!-- Product Detail Section -->
     <section class="product-detail-section">
         <div class="product-detail-container">
-            <div class="product-detail-image" style="background-image: url('{% static "media/" %}{{ no_item.images.url }}');"></div>
+            <div class="product-detail-image" style="background-image: url('{% static "media/" %}{{ no_item.images }}');"></div>
             <div class="product-detail-info">
                 <h2>{{ no_item.title }}</h2>
                 <p>{{ no_item.category.title }}</p>
