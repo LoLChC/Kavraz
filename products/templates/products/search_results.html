@@ -73,7 +73,7 @@
                 {% for product in products %}
                     <div class="product-card">
                         <a href="{% url 'products_detail' product.slug %}">
-                            <div class="product-images" style="background-image: url('../../media/{{ product.images }}');"></div>
+                            <div class="product-images" style="background-image: url('{% static "media/" %}{{ product.images }}');"></div>
                         </a>
                         <div class="product-info">
                             <a href="{% url 'products_detail' product.slug %}">
