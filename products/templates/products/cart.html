@@ -25,7 +25,7 @@
                     {% for item in cart_items %}
                         <div class="cart-item" data-product-id="{{ item.product.id }}">
                             <div class="cart-item-img-container">
-                                <img src="{{ item.product.images.url }}" alt="{{ item.product.title }}" class="cart-item-img">
+                                <img src="{% static "media/" %}{{ item.product.images.url }}" alt="{{ item.product.title }}" class="cart-item-img">
                             </div>
                             <div class="cart-item-details">
                                 <h3>{{ item.product.title }}</h3>
