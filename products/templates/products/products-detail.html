@@ -75,7 +75,7 @@
             {% for product in products %}
                 <div class="product-card">
                     <a href="{% url 'products:products_detail' slug=product.slug %}">
-                        <div class="product-detail-image" style="background-image: url('{% static "media/" %}{{ product.images.url }}');"></div>
+                        <div class="product-detail-image" style="background-image: url('{% static "media/" %}{{ product.images. }}');"></div>
                         <div class="product-info">
                             <h3>{{ product.title }}</h3>
                             <p>{{ product.description|truncatewords:60 }} ...</p>
