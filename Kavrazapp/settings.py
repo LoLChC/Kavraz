@@ -152,24 +152,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# INSTALLED_APPS += [
-#     'cloudinary',
-#     'cloudinary_storage',
-# ]
-
-# # Cloudinary bilgilerini buraya yaz
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': 'dttt02gne',
-#     'API_KEY': '386896583465921',
-#     'API_SECRET': 'P1mXIsW6KRgFcjU8dcy6O0aqH7c',
-# }
-
-# # Varsayılan dosya depolama sistemini cloudinary yap
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-# # Eğer media url kullaniyorsan ekle (isteğe bağlı)
-# MEDIA_URL = '/media/'
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
