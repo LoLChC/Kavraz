@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+# Debug False yap
+# Database düzelt
+# Env ekle
 
 import dj_database_url
 from pathlib import Path
@@ -24,12 +27,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '33k%t)enrw1+nkr+_6n1zc+wm%o2l^-zoijy_3s!h=q7jsjzp%'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['kavraz.onrender.com','*']
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 LOGIN_URL = '/account/login/'
 
@@ -101,7 +104,7 @@ WSGI_APPLICATION = 'Kavrazapp.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.parse(
-        'postgresql://kavrazdb_user:Io1Ew8LawS4c5DD6oG45dk0x8weqACVv@dpg-d23qvdfgi27c738ati70-a.oregon-postgres.render.com/kavrazdb'
+        os.getenv('DATABASE_URL'),
     )
 }
 
