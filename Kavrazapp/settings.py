@@ -109,7 +109,6 @@ DATABASES = {
     )
 }
 
-
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 # Password validation
